@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechEarner - Tech & Earning Apps</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
+body { font-family:"Poppins",sans-serif; background:#000; color:#fff; }
+header { background:#111; padding:20px 10%; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+header h1 { font-size:26px; color:#00ffee; letter-spacing:1px; }
+nav a { color:#fff; text-decoration:none; margin-left:25px; font-size:16px; transition:color 0.3s; }
+nav a:hover { color:#00ffee; }
+.hero { height:90vh; display:flex; justify-content:center; align-items:center; flex-direction:column; text-align:center; background:linear-gradient(to right,#000,#111); animation:fadeIn 2s ease-in-out; }
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+.hero h2 { font-size:45px; margin-bottom:15px; color:#00ffee; }
+.hero p { font-size:18px; color:#bbb; }
+section { padding:80px 10%; }
+.section-title { text-align:center; font-size:30px; color:#00ffee; margin-bottom:40px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; }
+.card { background:#111; border-radius:15px; padding:20px; transition:transform 0.3s, background 0.3s; }
+.card:hover { transform:translateY(-10px); background:#1a1a1a; }
+.card img { width:100%; border-radius:10px; margin-bottom:15px; }
+.card h3 { color:#00ffee; margin-bottom:10px; }
+.card p { color:#ccc; font-size:15px; margin-bottom:10px; }
+.card a { display:inline-block; padding:8px 15px; background:#00ffee; color:#000; border-radius:8px; text-decoration:none; font-weight:bold; transition:background 0.3s; }
+.card a:hover { background:#00bbaa; }
+footer { background:#111; text-align:center; padding:25px 0; color:#888; font-size:14px; border-top:1px solid #222; }
+footer span { color:#00ffee; }
+/* Scroll Animation */
+.fade { opacity:0; transform:translateY(20px); transition:all 0.8s ease; }
+.fade.show { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TechEarner</h1>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#apps">Earning Apps</a>
+    <a href="#tools">Tech Tools</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <h2>Welcome to TechEarner</h2>
+  <p>Discover the best earning apps & tech tools in 2025</p>
+</section>
+
+<section id="apps">
+  <h2 class="section-title">💰 Best Earning Apps</h2>
+  <div class="cards" id="app-cards"></div>
+</section>
+
+<section id="tools">
+  <h2 class="section-title">⚙️ Trending Tech Tools</h2>
+  <div class="cards" id="tool-cards"></div>
+</section>
+
+<footer>
+  <p>© 2025 <span>TechEarner</span> | Designed by <span>Afroj Mondal</span></p>
+</footer>
+
+<script>
+// ======= Data Arrays =======
+const apps = [
+  {name:"EarnKaro", description:"Affiliate based earning app. Share links & earn.", link:"https://earnkaro.com/blog/earnkaro-app/", image:"https://images.unsplash.com/photo-1581091012184-0b7e8a6b6f7e?auto=format&fit=crop&w=800&q=80"},
+  {name:"Roz Dhan", description:"News reading, quizzes & referral rewards app.", link:"https://www.trendpaisa.com/top-earning-apps-without-investment-india-2025/", image:"https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&w=800&q=80"},
+  {name:"TaskBucks", description:"Complete tasks & surveys to earn rewards.", link:"https://www.trendpaisa.com/top-earning-apps-without-investment-india-2025/", image:"https://images.unsplash.com/photo-1612831667441-c6f9a4f4b9a5?auto=format&w=800&q=80"},
+  {name:"Google Opinion Rewards", description:"Answer surveys & earn Google Play credits.", link:"https://moneyinsighthub.com/top-10-money-earning-apps-in-india-2025/", image:"https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&w=800&q=80"},
+  {name:"Meesho", description:"Reselling platform with minimal investment.", link:"https://www.onerank.in/real-money-earning-apps/", image:"https://images.unsplash.com/photo-1593642532400-2682810df593?auto=format&w=800&q=80"},
+  {name:"Swagbucks", description:"Earn points through surveys, videos & tasks.", link:"https://makemoney.net.in/blog/10-best-money-making-apps-in-india-2025", image:"https://images.unsplash.com/photo-1623053383575-63db828bf60f?auto=format&w=800&q=80"},
+  {name:"CashKaro", description:"Get cashback on online shopping and earn rewards easily.", link:"https://www.cashkaro.com/", image:"https://images.unsplash.com/photo-1590608897129-79c1c5397b23?auto=format&w=800&q=80"},
+  {name:"Upstox", description:"Invest in stocks and mutual funds with low fees and simple interface.", link:"https://upstox.com/", image:"https://images.unsplash.com/photo-1605902711622-cfb43c443e1f?auto=format&w=800&q=80"},
+  {name:"PhonePe", description:"Make payments, earn rewards, and transfer money instantly.", link:"https://www.phonepe.com/", image:"https://images.unsplash.com/photo-1573164574395-29c3a1f4e692?auto=format&w=800&q=80"},
+  {name:"Paytm First Games", description:"Play games and win real cash rewards instantly.", link:"https://paytm.com/games", image:"https://images.unsplash.com/photo-1600185363384-5b5bdf97a2fc?auto=format&w=800&q=80"},
+  {name:"MPL (Mobile Premier League)", description:"Play skill-based games to earn money and prizes.", link:"https://www.mpl.live/", image:"https://images.unsplash.com/photo-1621439625704-9ff9e4c1a4ea?auto=format&w=800&q=80"}
+];
+
+const tools = [
+  {name:"Canva", description:"Design graphics, posters, and social media content easily.", link:"https://www.canva.com/", image:"https://images.unsplash.com/photo-1624295962241-90c74e43c682?auto=format&w=800&q=80"},
+  {name:"Notion AI", description:"Organize notes, tasks, and projects efficiently using AI.", link:"https://www.notion.so/product/ai", image:"https://images.unsplash.com/photo-1581090700227-b02401ec79b4?auto=format&w=800&q=80"},
+  {name:"Figma", description:"Collaborative design and prototyping tool for web & apps.", link:"https://www.figma.com/", image:"https://images.unsplash.com/photo-1612832021148-8d2aefb6e77a?auto=format&w=800&q=80"},
+  {name:"ChatGPT", description:"AI chatbot to get answers, generate content & automate tasks.", link:"https://chat.openai.com/", image:"https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&w=800&q=80"},
+  {name:"GitHub", description:"Free code hosting platform for version control and collaboration.", link:"https://github.com/", image:"https://images.unsplash.com/photo-1593642532400-2682810df593?auto=format&w=800&q=80"},
+  {name:"Netlify", description:"Deploy static websites and web apps easily with free hosting.", link:"https://www.netlify.com/", image:"https://images.unsplash.com/photo-1622798180985-7f80fa7c51a3?auto=format&w=800&q=80"},
+  {name:"Trello", description:"Organize projects, tasks & collaborate visually.", link:"https://trello.com/", image:"https://images.unsplash.com/photo-1612831455545-50e0b9d92b32?auto=format&w=800&q=80"},
+  {name:"Slack", description:"Team communication and collaboration platform.", link:"https://slack.com/", image:"https://images.unsplash.com/photo-1612832021073-d2e68c1588c6?auto=format&w=800&q=80"},
+  {name:"Zoom", description:"Video conferencing and online meeting tool.", link:"https://zoom.us/", image:"https://images.unsplash.com/photo-1603791440383-56cd371ee9a7?auto=format&w=800&q=80"},
+  {name:"Adobe Photoshop", description:"Professional graphic design and photo editing software.", link:"https://www.adobe.com/products/photoshop.html", image:"https://images.unsplash.com/photo-1581091012184-0b7e8a6b6f7e?auto=format&w=800&q=80"},
+  {name:"Google Drive", description:"Cloud storage for files, documents, and collaboration.", link:"https://drive.google.com/", image:"https://images.unsplash.com/photo-1590608897129-79c1c5397b23?auto=format&w=800&q=80"}
+];
+
+// ======= Function to Render Cards =======
+function renderCards(dataArray, containerId){
+  const container = document.getElementById(containerId);
+  dataArray.forEach(item=>{
+    const card = document.createElement('div');
+    card.classList.add('card','fade');
+    card.innerHTML = `
+      <img src="${item.image}" alt="${item.name}" loading="lazy">
+      <h3>${item.name}</h3>
+      <p>${item.description}</p>
+      <a href="${item.link}" target="_blank">Visit</a>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Render apps and tools
+renderCards(apps,'app-cards');
+renderCards(tools,'tool-cards');
+
+// ===== Scroll Animation =====
+const faders = document.querySelectorAll('.fade');
+const appearOptions = { threshold:0.2 };
+const appearOnScroll = new IntersectionObserver(function(entries,observer){
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting) return;
+    entry.target.classList.add('show');
+    observer.unobserve(entry.target);
+  });
+}, appearOptions);
+faders.forEach(fader=>{ appearOnScroll.observe(fader); });
+
+// Smooth scroll for navigation
+const links = document.querySelectorAll('header nav a');
+links.forEach(link=>{
+  link.addEventListener('click',function(e){
+    e.preventDefault();
+    const target=document.querySelector(this.getAttribute('href'));
+    target.scrollIntoView({ behavior:'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
